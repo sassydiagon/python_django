@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+{% block title %} Student's Leaderboard {% endblock title%}
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Student's Leaderboard</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center">Rank</th>
+                <th class="text-center">Name</th>
+                <th class="text-center">Class</th>
+                <th class="text-center">Total Marks</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+                <tr>
+                    <td class="text-center">{{ forloop.counter }}</td>
+                    <td>{{ student.name }}</td>
+                    <td class="text-center">{{ student.class_in }}</td>
+                    <td class="text-center">{{ student.total_marks }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

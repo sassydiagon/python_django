@@ -1,0 +1,20 @@
+{% extends "users/base.html" %}
+{% block title %} Home Page {% endblock title%}
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome, {{user.first_name.title|default:'Guest'}}</h1>
+        <p class="lead">
+            Welcome to our <b>Student Ranking</b> App! This platform helps students track their academic performance and rank based on their marks in high school or intermediate. Whether you're aiming for the top spot or looking to improve, our app provides valuable insights to help you succeed.
+        </p>        
+        <hr class="my-4">
+        <p class="lead">
+            {% if user.is_authenticated %}
+            <a class="btn btn-primary rounded-pill" href="/marks/student-form" role="button">Submit your marks</a>
+            <a class="btn btn-outline-primary rounded-pill" href="/marks/student-rank" role="button">Check your rank</a>
+            {% else %}
+                <a class="btn btn-primary rounded-pill" href="{% url 'login' %}" role="button">Sign in</a>
+            {% endif %}
+        </p>
+    </div>
+
+{% endblock content %}

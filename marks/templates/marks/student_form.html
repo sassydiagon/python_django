@@ -1,0 +1,76 @@
+{% extends "users/base.html" %}
+{% block title %} Submit you marks {% endblock title%}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Student Information and Marks Form</h2>
+    <form method="post" id="student-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" name="name" id="name">
+        </div>
+        <div class="form-group">
+            <label for="roll_number">Roll Number:</label>
+            <input type="text" class="form-control" name="roll_number" id="roll_number">
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" class="form-control" name="dob" id="dob">
+        </div>
+        <div class="form-group">
+            <label for="class_in">Class:</label>
+            <select class="form-control" name="class_in" id="class_in">
+                <option value="High School" selected>High School</option>
+                <option value="Intermediate">Intermediate</option>
+            </select>
+        </div>
+        <div id="subject-fields" class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Marks</th>
+                    </tr>
+                </thead>
+                <tbody id="subject-fields-body">
+                    <!-- Subject fields will be displayed here -->
+                </tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#class_in').change(function() {
+            var selectedClass = $(this).val();
+            var subjects = [];
+
+            // Define subjects based on the selected class
+            if (selectedClass === 'High School') {
+                subjects = ['Math', 'Science', 'Social Studies', 'English', 'Hindi'];
+            } else if (selectedClass === 'Intermediate') {
+                subjects = ['Physics', 'Chemistry', 'Math', 'English', 'Hindi'];
+            }
+
+            // Generate HTML for subject fields
+            var subjectFieldsHtml = '';
+            $.each(subjects, function(index, subject) {
+                subjectFieldsHtml += '<tr>';
+                subjectFieldsHtml += '<td>' + subject + '</td>';
+                subjectFieldsHtml += '<td><input type="number" class="form-control" name="' + subject + '" id="' + subject + '"></td>';
+                subjectFieldsHtml += '</tr>';
+            });
+
+            // Replace the subject fields in the table body with the new HTML
+            $('#subject-fields-body').html(subjectFieldsHtml);
+        });
+
+        // Trigger change event for class dropdown to show subjects for "High School" by default
+        $('#class_in').trigger('change');
+    });
+</script>
+{% endblock content %}

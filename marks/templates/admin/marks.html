@@ -1,0 +1,12 @@
+
+{% load i18n admin_urls %}
+<tr class="{% cycle 'row1' 'row2' %} form-row">
+    {% for field in inline_admin_form %}
+        {% if field.field.name == 'subject' %}
+            <td>{{ field.contents }}</td>
+        {% endif %}
+        {% if field.field.name == 'marks_obtained' %}
+            <td>{{ field.contents }}</td>
+        {% endif %}
+    {% endfor %}
+</tr>
